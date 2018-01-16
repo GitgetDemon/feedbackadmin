@@ -26,7 +26,7 @@
                         <table class="table table-striped table-bordered">
                             <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Kérdőív neve</th>
+                                <th scope="col">Kérdőív lap neve</th>
                                 <th scope="col">Ismertető</th>
                             </tr>
                             </thead>

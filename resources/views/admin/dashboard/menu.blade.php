@@ -32,7 +32,7 @@
                 <a class="nav-link menulink" href="{{route('admin.showEditedQuestionnaire')}}">Kérdőív publikálás</a>
             </li>
             <li class="nav-item btn btn-success">
-                <a class="nav-link menulink" href="#">Részletes kérdőív infó</a>
+                <a class="nav-link menulink" href="{{route('admin.publishedQuestionnaires')}}">Részletes kérdőív infó</a>
             </li>
         </ul>
 

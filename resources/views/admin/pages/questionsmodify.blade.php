@@ -19,7 +19,7 @@
                                                 selected="selected"
                                             @endif
                                         @endif
-                                        >{{$question->question}}</option>
+                                        >{{$question->question}}({{$QuestionFormatter->format($question->answer_type)}})</option>
                                 @endforeach
                             </select>
                         </div>
@@ -27,7 +27,7 @@
                     </form>
 
                     @if(!empty($selectedQuestion))
-                        <div class="border border-warning col-12">
+                        <div class="border border-warning col-12 my-4 py-3">
                             <form action="{{ route('admin.modifyquestion') }}" method="post" >
                                 {{ csrf_field() }}
                                 <div class="form-group">
@@ -37,6 +37,7 @@
                                 </div>
                                 <div class="col-12">Kérdés eddigi szövege : <strong>{{ $selectedQuestion->question }}</strong></div>
                                 <div class="col-12">Válasz típusa : {{ $QuestionFormatter->format($selectedQuestion->answer_type) }}</div>
+                                <div class="col-12">Használatban : {{ $selectedQuestion->page()->first()->page_name }}</div>
                                 <input class="btn btn-primary" type="submit" value="Módosítás">
                             </form>
                         </div>

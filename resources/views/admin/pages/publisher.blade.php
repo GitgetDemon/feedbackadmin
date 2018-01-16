@@ -7,10 +7,21 @@
     </div>
     <div class="col-12 text-center">
         A kérdőívben a következő kérdések jelennek meg a megadott sorrendben.
-        <div class="text-danger">
-            A kérdőív csak a publikálás után jelenik meg, az alábbi beállítások alapján.
-            A publikálás után, a kérdőív nem módosítható.
-            De mindig az újonnan publikált kérdőív verzió jelenik meg minden új kitöltő személynek.
+        <div class="text-danger text-left border-info border my-2">
+            <ul>
+                <li>
+                    A kérdőív csak a publikálás után jelenik meg, az alábbi beállítások alapján.
+                </li>
+                <li>
+                    A publikálás után, a kérdőív a publikált verziója nem módosítható.
+                </li>
+                <li>
+                    A változtatáshoz mindig új publikáció szükséges.
+                </li>
+                <li>
+                    De mindig az újonnan publikált kérdőív verzió jelenik meg minden új kitöltő személynek.
+                </li>
+            </ul>
         </div>
         <div class="text-center">
             <form action="{{ route('admin.publishQuestionnaire') }}" method="post" >

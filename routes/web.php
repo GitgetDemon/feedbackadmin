@@ -50,6 +50,10 @@ Route::group([
     Route::get('/showEditedQuestionnaire', 'QuestionnaireController@showEdited')->name('admin.showEditedQuestionnaire');
     Route::post('/publishQuestionnaire', 'QuestionnaireController@publish')->name('admin.publishQuestionnaire');
 
+    /* Kérdőív részletes információ */
+    Route::get('/showPublishedQuestionnaires','PublishedQuestionnairesController@show')->name('admin.publishedQuestionnaires');
+    Route::get('/showPublishedQuestionnaire', 'PublishedQuestionnairesController@showChosen')->name('admin.publishedQuestionnaire');
+
     /* Egyéb konfigurációk beállítása*/
     Route::get('/settings', 'ConfigController@show')->name('admin.settings');
     Route::post('/settingsStoreGreetings', 'ConfigController@StoreGreetings')->name('admin.settingsStoreGreetings');

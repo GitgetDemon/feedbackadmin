@@ -12,8 +12,13 @@ class PublishedQuestionnaire extends Model
     'published_questionnaire' => 'array',
   ];
 
-  public function questionnaire()
-{
-  return $this->belongsTo(Questionnaire::class);
-}
+    public function questionnaire()
+  {
+    return $this->belongsTo(Questionnaire::class);
+  }
+
+  public function scopeNewest($query){
+    return $query->orderBy('created_at','desc')->limit(1);
+  }
+
 }
