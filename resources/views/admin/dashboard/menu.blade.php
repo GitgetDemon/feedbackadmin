@@ -1,6 +1,12 @@
 <img src="http://revotica.hu/sites/default/files/logo_0.jpg" class="img-fluid">
 <nav class="navbar">
         <ul class="navbar-nav btn-group-vertical col-12 menu-part">
+            <li class="nav-item btn btn-info">
+                <a class="nav-link menulink" href="{{route('admin')}}">Segítség</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav btn-group-vertical col-12 menu-part">
             <li class="nav-item btn btn-success">
                 <a class="nav-link menulink" href="{{route('admin.questions')}}">Új kérdés</a>
             </li>
