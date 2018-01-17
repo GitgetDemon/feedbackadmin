@@ -5,15 +5,15 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::group([
+  'prefix' => 'admin',
   'middleware' => [
     'auth',
     ]
 ],
   function() {
 
-    Route::get('/', function () {
-      return view('admin.dashboard.pages');
-    });
+    Route::get('/', 'AdminController@index')->name('admin');
+
     /* Kérdés hozzáadás */
     Route::get('/questions', 'QuestionController@show')->name('admin.questions');
     Route::post('/addquestion', 'QuestionController@store')->name('admin.questionstore');
