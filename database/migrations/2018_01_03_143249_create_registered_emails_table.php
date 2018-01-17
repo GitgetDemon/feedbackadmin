@@ -16,7 +16,8 @@ class CreateRegisteredEmailsTable extends Migration
         Schema::create('registered_emails', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('registered_emails');
+            $table->string('registered_email');
+            $table->integer('published_questionnaire_id');
             $table->timestamps();
         });
     }

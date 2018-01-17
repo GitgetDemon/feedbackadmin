@@ -63,5 +63,7 @@ Route::group([
 
 
   });
-//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/','GreetingsPageController@show')->name('guest.greetingsShow');
+Route::post('/kerdoiv','AnswerController@questionProcessor')->name('guest.questionnaire');
 

@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
-    @yield('css')
+    @stack('styles')
 
 </head>
-<body>
+<body class="bg-info">
 @yield('body')
     <script src="{{ URL::asset('js/app.js') }}"></script>
-@yield('js')
+@stack('scripts')
 </body>
 </html>
