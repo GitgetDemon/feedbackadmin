@@ -56,7 +56,7 @@
                                 <label for="question">Kérdés hozzáadása a kérdőív laphoz</label>
                                 <select class="form-control {{ $errors->has('question_id') ? ' is-invalid' : '' }}" id="question" name="question_id">
                                     @foreach($unusedQuestions as $question)
-                                            <option value="{{$question->id}}">{{$question->question}}</option>
+                                            <option value="{{$question->id}}">{{$question->question}}({{ $QuestionFormatter->format($question->answer_type) }})</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -16,23 +16,39 @@ class GreetingsPageController extends Controller
     $getInfo = Config::category('greetings')->first();
     $greetings = $getInfo->content;
 
+    /* Az error arra szolgál hogyha első futtatás alkalmával nem található kérdőív akkor egy sablon szöveg megkéri őket hogy látogassanak vissza később */
+    $error = false;
+
     $isInDb = RegisteredEmail::where('registered_email',$email)->first();
     if(empty($isInDb))
     {
-      $questionnaire_id = PublishedQuestionnaire::newest()->first()->id;
+      $questionnaire = PublishedQuestionnaire::newest()->first();
+      if(!empty($questionnaire))
+      {
+      $numberOfPages = count($questionnaire->published_questionnaire[0]['pages']);
 
       RegisteredEmail::create([
         'registered_email' => $email,
-        'published_questionnaire_id' => $questionnaire_id
+        'published_questionnaire_id' => $questionnaire->id
       ]);
       $getId = RegisteredEmail::where('registered_email',$email)->first()->id;
       session(['id' => $getId]);
-      session(['published_questionnaire_id' => $questionnaire_id]);
+      session(['published_questionnaire_id' => $questionnaire->id]);
+      session(['number_of_pages' => $numberOfPages]);
+      }
+      else{
+        $error = true;
+      }
     }
     else{
+      $questionnaire = PublishedQuestionnaire::where('id',$isInDb->published_questionnaire_id)->first();
+
+      $numberOfPages = count($questionnaire->published_questionnaire[0]['pages']);
       session(['id' => $isInDb->id]);
       session(['questionnaire_id' => $isInDb->published_questionnaire_id]);
+      session(['number_of_pages' => $numberOfPages]);
     }
-    return view('frontend.greetings',compact('greetings'));
+
+    return view('frontend.greetings',compact('greetings','error'));
   }
 }

@@ -16,12 +16,3 @@
         </div>
     </div>
 @endsection
-
-@push('styles')
-<style>
-.box
-{
-    height:100vh;
-}
-</style>
-@endpush
