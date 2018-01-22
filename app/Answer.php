@@ -8,6 +8,10 @@ class Answer extends Model
 {
   protected $guarded = [];
 
+  protected $casts = [
+    'answers' => 'array',
+  ];
+
   public function page()
   {
     return $this->belongsTo(RegisteredEmail::class);

@@ -1,6 +1,12 @@
 @extends('frontend.layout.framework')
 
 @section('content')
+    @if($errors->count() != 0)
+        {{ dd($errors) }}
+        @endif
+    @foreach($errors as $error)
+        {{ $error }}
+        @endforeach
     <div class="col-12 text-center">
         <h1>{{$actualPage['page_name']}}</h1>
     </div>
@@ -20,27 +26,27 @@
                 @foreach($actualPage['questions'] as $question)
                     @if($question['answer_type'] == 'decide')
                         @include('frontend.input.decide', [
-                                            'input_name' => $question['id'],
+                                            'input_name' => 'id-' . $question['id'],
                                             'input_text' => $question['question'],
                                         ])
                     @elseif($question['answer_type'] == 'longtext')
                         @include('frontend.input.longtext', [
-                                            'input_name' => $question['id'],
+                                            'input_name' => 'id-' . $question['id'],
                                             'input_text' => $question['question'],
                                         ])
                     @elseif($question['answer_type'] == 'shorttext')
                         @include('frontend.input.shorttext', [
-                                            'input_name' => $question['id'],
+                                            'input_name' => 'id-' . $question['id'],
                                             'input_text' => $question['question'],
                                         ])
                     @elseif($question['answer_type'] == 'numeric')
                         @include('frontend.input.numeric', [
-                                            'input_name' => $question['id'],
+                                            'input_name' => 'id-' . $question['id'],
                                             'input_text' => $question['question'],
                                         ])
                     @elseif($question['answer_type'] == 'rating')
                         @include('frontend.input.rating', [
-                                            'input_name' => $question['id'],
+                                            'input_name' => 'id-' . $question['id'],
                                             'input_text' => $question['question'],
                                         ])
                     @endif

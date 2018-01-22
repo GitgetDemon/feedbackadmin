@@ -8,7 +8,7 @@
             @endif
         </div>
         <div class="startform col-12 my-5 mx-auto text-center">
-            <form action="{{ route('guest.questionnaire') }}" method="post" >
+            <form action="{{ route('guest.questionnaire') }}" method="get" >
                 {{ csrf_field() }}
                 <input class="btn btn-lg btn-success" type="submit" value="Tovább a kérdőívre!">
             </form>
