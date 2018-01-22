@@ -15,7 +15,7 @@
         </div>
     </div>
         <div class="startform col-8 my-5 mx-auto">
-            <form action="{{ route('guest.questionnaire') }}" method="post" >
+            <form action="{{ route('guest.answers') }}" method="post" >
                 {{ csrf_field() }}
                 @foreach($actualPage['questions'] as $question)
                     @if($question['answer_type'] == 'decide')

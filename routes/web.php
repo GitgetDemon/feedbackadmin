@@ -66,4 +66,4 @@ Route::group([
 
 Route::get('/','GreetingsPageController@show')->name('guest.greetingsShow');
 Route::post('/kerdoiv','AnswerController@questionProcessor')->name('guest.questionnaire');
-
+Route::post('/answer','AnswerController@answerProcessor')->name('guest.answers');
