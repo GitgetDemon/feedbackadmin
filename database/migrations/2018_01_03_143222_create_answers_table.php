@@ -16,7 +16,7 @@ class CreateAnswersTable extends Migration
         Schema::create('answers', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('registered_email_id');
+            $table->integer('registered_szallitolevel_id');
             $table->json('answers');
             $table->timestamps();
         });

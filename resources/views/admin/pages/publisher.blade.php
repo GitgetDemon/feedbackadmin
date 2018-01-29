@@ -13,13 +13,13 @@
                     A kérdőív csak a publikálás után jelenik meg, az alábbi beállítások alapján.
                 </li>
                 <li>
-                    A publikálás után, a kérdőív a publikált verziója nem módosítható.
+                    A publikálás után, a kérdőív publikált verziója nem módosítható.
                 </li>
                 <li>
                     A változtatáshoz mindig új publikáció szükséges.
                 </li>
                 <li>
-                    De mindig az újonnan publikált kérdőív verzió jelenik meg minden új kitöltő személynek.
+                    Mindig az újonnan publikált kérdőív verzió jelenik meg minden új kitöltő személynek.
                 </li>
             </ul>
         </div>

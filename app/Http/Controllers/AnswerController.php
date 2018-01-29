@@ -3,13 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Config;
+use App\Notifications\feedbackMail;
 use App\PublishedQuestionnaire;
+use App\Rating;
+use App\registeredSzallitolevel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class AnswerController extends Controller
 {
     public function questionProcessor(Request $request)
     {
+      $user_id = session('id');
+      if(empty($user_id))
+      {
+        return redirect()->route('guest.greetingsShow');
+      }
+      $result =  Rating::where('registered_szallitolevel_id',$user_id)->first();
+      if(!empty($result->result))
+      {
+        return redirect()->route('guest.greetingsShow');
+      }
       $page_id = session('page_id');
       $numberOfPages = session('number_of_pages');
 
@@ -18,13 +33,11 @@ class AnswerController extends Controller
       /* TODO: Amikor elmentjük már a válaszokat ,akkor azt is belekell venni az ellenörzésbe. bár a folyamat már magát hajtja előre, de ellenörizni kell hogy az adott lap kérdéssorra válaszolt-e már, minden lépésnél, ez azért szükséges hogy 2x ugyanazt a kérdéssort ne tudja kitölteni */
       if(empty($page_id))
       {
-        $user_id = session('id');
         $questionnaire_id = session('published_questionnaire_id');
         $page_id = 1;
         session(['page_id' => $page_id]);
       }
       else{
-        $user_id = session('id');
         $questionnaire_id = session('published_questionnaire_id');
       }
 
@@ -81,22 +94,50 @@ class AnswerController extends Controller
       }
 
       $user_id = session('id');
-      $user_old_answer = Answer::where('registered_email_id',$user_id)->first();
+      $user_old_answer = Answer::where('registered_szallitolevel_id',$user_id)->first();
       if(empty($user_old_answer))
       {
         Answer::create([
-          'registered_email_id' => $user_id,
+          'registered_szallitolevel_id' => $user_id,
           'answers' => $answer,
         ]);
       }
       else{
         $answersOfUser = $user_old_answer['answers'];
         $answersOfUser = array_merge($answersOfUser,$answer);
+        $user_old_answer->answers = $answersOfUser;
+        $user_old_answer->save();
       }
-
 
       if($endOfQuestionnaire)
       {
+        $userAnswers = Answer::where('registered_szallitolevel_id',$user_id)->first();
+        $pagesOfAnswers = $userAnswers->answers;
+        $sum = 0;
+        $numberOfRatingType = 0;
+        foreach ($pagesOfAnswers as $pageOfAnswer)
+        {
+          foreach ($pageOfAnswer as $oneAnswer){
+            if ($oneAnswer['answer_type'] == 'rating'){
+              $sum = $sum + intval($oneAnswer['answer']);
+              $numberOfRatingType = $numberOfRatingType + 1;
+            }
+          }
+        }
+        $rating = ($sum/$numberOfRatingType);
+        Rating::create([
+          'registered_szallitolevel_id' => $user_id,
+          'result' => $rating,
+        ]);
+
+        $email = !empty(Config::category('mail')->first()->content)?Config::category('mail')->first()->content:'';
+
+        $answers = $userAnswers->answers;
+        $result = $rating;
+        $szallitolevelszam = registeredSzallitolevel::where('id',$user_id)->first();
+        Notification::route('mail', $email)
+          ->notify(new feedbackMail($answers,$result,$szallitolevelszam));
+
         return redirect(route('guest.salutation'));
       }
       else{

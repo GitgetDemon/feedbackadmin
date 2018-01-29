@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Answer extends Model
+class Rating extends Model
 {
   protected $guarded = [];
 
   protected $casts = [
-    'answers' => 'array',
+    'result' => 'array',
   ];
 
-  public function page()
+  public function registered()
   {
     return $this->belongsTo(registeredSzallitolevel::class);
   }

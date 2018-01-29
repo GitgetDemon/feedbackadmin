@@ -67,3 +67,4 @@ Route::group([
 Route::get('/','GreetingsPageController@show')->name('guest.greetingsShow');
 Route::get('/kerdoiv','AnswerController@questionProcessor')->name('guest.questionnaire');
 Route::post('/answer','AnswerController@answerProcessor')->name('guest.answers');
+Route::get('/viszlat','SalutationPageController@showSalutation')->name('guest.salutation');

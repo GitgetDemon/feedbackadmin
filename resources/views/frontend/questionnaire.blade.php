@@ -1,12 +1,6 @@
 @extends('frontend.layout.framework')
 
 @section('content')
-    @if($errors->count() != 0)
-        {{ dd($errors) }}
-        @endif
-    @foreach($errors as $error)
-        {{ $error }}
-        @endforeach
     <div class="col-12 text-center">
         <h1>{{$actualPage['page_name']}}</h1>
     </div>
@@ -17,40 +11,69 @@
     @endif
     <div class="col-8 mx-auto my-3">
         <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success w-{{$percent}}" role="progressbar" aria-valuenow="{{$percent}}" aria-valuemin="0" aria-valuemax="100">{{$actualPage['order']}}/{{$numberOfPages}}</div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:{{$percent}}%;" role="progressbar" aria-valuenow="{{$percent}}" aria-valuemin="0" aria-valuemax="100">{{$actualPage['order']}}/{{$numberOfPages}}</div>
         </div>
     </div>
         <div class="startform col-8 my-5 mx-auto">
             <form action="{{ route('guest.answers') }}" method="post" >
                 {{ csrf_field() }}
                 @foreach($actualPage['questions'] as $question)
-                    @if($question['answer_type'] == 'decide')
-                        @include('frontend.input.decide', [
-                                            'input_name' => 'id-' . $question['id'],
-                                            'input_text' => $question['question'],
-                                        ])
-                    @elseif($question['answer_type'] == 'longtext')
-                        @include('frontend.input.longtext', [
-                                            'input_name' => 'id-' . $question['id'],
-                                            'input_text' => $question['question'],
-                                        ])
-                    @elseif($question['answer_type'] == 'shorttext')
-                        @include('frontend.input.shorttext', [
-                                            'input_name' => 'id-' . $question['id'],
-                                            'input_text' => $question['question'],
-                                        ])
-                    @elseif($question['answer_type'] == 'numeric')
-                        @include('frontend.input.numeric', [
-                                            'input_name' => 'id-' . $question['id'],
-                                            'input_text' => $question['question'],
-                                        ])
-                    @elseif($question['answer_type'] == 'rating')
-                        @include('frontend.input.rating', [
-                                            'input_name' => 'id-' . $question['id'],
-                                            'input_text' => $question['question'],
-                                        ])
-                    @endif
-
+                    <div class="col-12">
+                        @php
+                         $input_value = old('id-' . $question['id']) ? old('id-' . $question['id']) : '';
+                        @endphp
+                        @if($question['answer_type'] == 'decide')
+                            @include('frontend.input.decide', [
+                                                'input_name' => 'id-' . $question['id'],
+                                                'input_text' => $question['question'],
+                                                'input_value' => $input_value,
+                                            ])
+                            @if ($errors->has('id-' . $question['id']))
+                                <span class="help-block text-danger">Mező kitöltése kötelező!</span>
+                            @endif
+                            <hr>
+                        @elseif($question['answer_type'] == 'longtext')
+                            @include('frontend.input.longtext', [
+                                                'input_name' => 'id-' . $question['id'],
+                                                'input_text' => $question['question'],
+                                                'input_value' => $input_value,
+                                            ])
+                            @if ($errors->has('id-' . $question['id']))
+                                <span class="help-block text-danger">Mező kitöltése kötelező!</span>
+                            @endif
+                            <hr>
+                        @elseif($question['answer_type'] == 'shorttext')
+                            @include('frontend.input.shorttext', [
+                                                'input_name' => 'id-' . $question['id'],
+                                                'input_text' => $question['question'],
+                                                'input_value' => $input_value,
+                                            ])
+                            @if ($errors->has('id-' . $question['id']))
+                                <span class="help-block text-danger">Mező kitöltése kötelező!</span>
+                            @endif
+                            <hr>
+                        @elseif($question['answer_type'] == 'numeric')
+                            @include('frontend.input.numeric', [
+                                                'input_name' => 'id-' . $question['id'],
+                                                'input_text' => $question['question'],
+                                                'input_value' => $input_value,
+                                            ])
+                            @if ($errors->has('id-' . $question['id']))
+                                <span class="help-block text-danger">Mező kitöltése kötelező! A mező csak számértéket fogad el!</span>
+                            @endif
+                            <hr>
+                        @elseif($question['answer_type'] == 'rating')
+                            @include('frontend.input.rating', [
+                                                'input_name' => 'id-' . $question['id'],
+                                                'input_text' => $question['question'],
+                                                'input_value' => $input_value,
+                                            ])
+                            @if ($errors->has('id-' . $question['id']))
+                                <span class="help-block text-danger">Mező kitöltése kötelező!</span>
+                            @endif
+                            <hr>
+                        @endif
+                    </div>
                 @endforeach
                 <div class="col-12 text-center">
                     <input class="btn btn-lg btn-success" type="submit" value="Tovább!">
@@ -61,80 +84,46 @@
 
 @push('styles')
 <style>
+    hr
+    {
+        height: 10px;
+        border: 0;
+        box-shadow: 0 10px 10px -10px #8c8b8b inset;
+    }
     .text-box
     {
         border: 3px double;
     }
-    form .stars {
-        background: url("{{URL::asset('images/stars.png')}}") repeat-x 0 0;
-        width: 150px;
-        margin: 0 auto;
+
+
+    .rating {
+        overflow: hidden;
+        display: inline-block;
     }
 
-    form .stars input[type="radio"] {
-        position: absolute;
+    .rating-input {
+        float: right;
+        width: 16px;
+        height: 16px;
+        padding: 0;
+        margin: 0 0 0 -16px;
         opacity: 0;
-        filter: alpha(opacity=0);
     }
-    form .stars input[type="radio"].star-5:checked ~ span {
-        width: 100%;
+
+    .rating:hover .rating-star:hover,
+    .rating:hover .rating-star:hover ~ .rating-star,
+    .rating-input:checked ~ .rating-star {
+        background-position: 0 0;
     }
-    form .stars input[type="radio"].star-4:checked ~ span {
-        width: 80%;
-    }
-    form .stars input[type="radio"].star-3:checked ~ span {
-        width: 60%;
-    }
-    form .stars input[type="radio"].star-2:checked ~ span {
-        width: 40%;
-    }
-    form .stars input[type="radio"].star-1:checked ~ span {
-        width: 20%;
-    }
-    form .stars label {
-        display: block;
-        width: 30px;
-        height: 30px;
-        margin: 0!important;
-        padding: 0!important;
-        text-indent: -999em;
-        float: left;
+
+    .rating-star,
+    .rating:hover .rating-star {
         position: relative;
-        z-index: 10;
-        background: transparent!important;
-        cursor: pointer;
-    }
-    form .stars label:hover ~ span {
-        background-position: 0 -30px;
-    }
-    form .stars label.star-5:hover ~ span {
-        width: 100% !important;
-    }
-    form .stars label.star-4:hover ~ span {
-        width: 80% !important;
-    }
-    form .stars label.star-3:hover ~ span {
-        width: 60% !important;
-    }
-    form .stars label.star-2:hover ~ span {
-        width: 40% !important;
-    }
-    form .stars label.star-1:hover ~ span {
-        width: 20% !important;
-    }
-    form .stars span {
+        float: right;
         display: block;
-        width: 0;
-        position: relative;
-        top: 0;
-        left: 0;
-        height: 30px;
-        background: url("{{URL::asset('images/stars.png')}}") repeat-x 0 -60px;
-        -webkit-transition: -webkit-width 0.5s;
-        -moz-transition: -moz-width 0.5s;
-        -ms-transition: -ms-width 0.5s;
-        -o-transition: -o-width 0.5s;
-        transition: width 0.5s;
+        width: 16px;
+        height: 16px;
+        background: url('{{URL::asset('images/star.png')}}') 0 -16px;
     }
 </style>
 @endpush

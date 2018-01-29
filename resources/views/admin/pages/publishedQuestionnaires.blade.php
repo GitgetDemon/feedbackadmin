@@ -6,7 +6,7 @@
     </div>
     <div class="col-12">
         <div class="col-12 my-4 text-danger text-center">
-            Jelenleg a <strong>{{$newest->id}}</strong> számú azonosítóval ellátott kérdőív jelenik meg a látogatók számára.
+            @if(!empty($newest->id))Jelenleg a <strong>{{$newest->id}}</strong> számú azonosítóval ellátott kérdőív jelenik meg a látogatók számára.@endif
         </div>
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegisteredEmailsTable extends Migration
+class CreateRatingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateRegisteredEmailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('registered_emails', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        Schema::create('ratings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('registered_email');
-            $table->integer('published_questionnaire_id');
+            $table->integer('registered_szallitolevel_id');
+            $table->json('result');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateRegisteredEmailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registered_emails');
+        Schema::dropIfExists('ratings');
     }
 }
