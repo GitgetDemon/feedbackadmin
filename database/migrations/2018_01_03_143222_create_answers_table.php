@@ -17,7 +17,7 @@ class CreateAnswersTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('registered_szallitolevel_id');
-            $table->json('answers');
+            $table->mediumText('answers');
             $table->timestamps();
         });
     }

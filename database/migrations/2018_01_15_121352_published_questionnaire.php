@@ -17,7 +17,7 @@ class PublishedQuestionnaire extends Migration
         $table->engine = 'InnoDB';
         $table->increments('id');
         $table->integer('questionnaire_id');
-        $table->json('published_questionnaire');
+        $table->mediumText('published_questionnaire');
         $table->timestamps();
       });
     }

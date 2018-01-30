@@ -17,7 +17,7 @@ class CreateConfigsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('category');
-            $table->json('content');
+            $table->text('content');
             $table->timestamps();
         });
     }

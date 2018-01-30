@@ -16,7 +16,7 @@ class CreateRatingsTable extends Migration
         Schema::create('ratings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('registered_szallitolevel_id');
-            $table->json('result');
+            $table->text('result');
             $table->timestamps();
         });
     }
