@@ -27,9 +27,9 @@
                 {{ csrf_field() }}
                 <div class="col-6 form-group">
                     <label for="googlelink" class="col-form-label">
-                        Google értékelő hivatkozás
+                        Google értékelő hivatkozás (Abszolút URL)
                     </label>
-                    <input type="text" name="googlelink" class="form-control" value="{{ $googlelink }}">
+                    <input type="text" name="googlelink" class="form-control" value="{{ $googlelink }}" placeholder="https://www.google.com">
                     @if ($errors->has('googlelink'))
                         <span class="help-block">
                             <strong>A google értékelő hivatkozás kitöltése kötelező</strong>
