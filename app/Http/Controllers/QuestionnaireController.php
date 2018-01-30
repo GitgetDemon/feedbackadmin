@@ -37,7 +37,7 @@ class QuestionnaireController extends Controller
       $allPageForQuestionnaire[$x]->save();
     }
 
-    return back()->with('site-message-success', __('ui.successfullysave'));
+    return back()->with('site-message-success', 'Sikeres mentés!');
   }
 
   public function modifyQuestionnaireDeletePage(Request $request)
@@ -54,7 +54,7 @@ class QuestionnaireController extends Controller
       $allPageForQuestionnaire[$x]->order= $x+1;
       $allPageForQuestionnaire[$x]->save();
     }
-    return back()->with('site-message-success', __('ui.successfullysave'));
+    return back()->with('site-message-success', 'Sikeres mentés!');
   }
 
 
@@ -76,6 +76,6 @@ class QuestionnaireController extends Controller
       'published_questionnaire' => $questionnaire->toArray()
     ]);
 
-    return back()->with('site-message-success', __('ui.successfullysave'));
+    return back()->with('site-message-success', 'Sikeres mentés!');
   }
 }

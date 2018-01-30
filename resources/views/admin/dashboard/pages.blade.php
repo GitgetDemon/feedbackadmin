@@ -7,6 +7,8 @@
                 @include('admin.dashboard.menu')
             </div>
             <div class="col-9 box">
+                @include('admin.alerts.success')
+                @include('admin.alerts.danger')
                 @yield('content')
             </div>
             {{--@include('includes.site-message-success')--}}

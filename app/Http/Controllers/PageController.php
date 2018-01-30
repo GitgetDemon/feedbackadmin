@@ -27,7 +27,7 @@ class PageController extends Controller
       'page_text' => $request->page_text,
     ]);
 
-    return back()->with('site-message-success', __('ui.successfullysave'));
+    return back()->with('site-message-success', 'Sikeres mentés!');
   }
 
   public function showmodify()
@@ -66,7 +66,7 @@ class PageController extends Controller
     $page->page_name = $validInput['page_name'];
     $page->page_text = $request->page_text;
     $page->save();
-    return back()->with('site-message-success', __('ui.successfullysave'));
+    return back()->with('site-message-success', 'Sikeres mentés!');
   }
 
  public function chosePageAddQuestion(Request $request)
@@ -87,7 +87,7 @@ class PageController extends Controller
      $allQuestionForPage[$x]->save();
    }
 
-   return back()->with('site-message-success', __('ui.successfullysave'));
+   return back()->with('site-message-success', 'Sikeres mentés!');
  }
 
  public function chosePageDeleteQuestion(Request $request)
@@ -104,7 +104,7 @@ class PageController extends Controller
      $allQuestionForPage[$x]->order= $x+1;
      $allQuestionForPage[$x]->save();
    }
-   return back()->with('site-message-success', __('ui.successfullysave'));
+   return back()->with('site-message-success', 'Sikeres mentés!');
  }
 
   public function showDeletable()
@@ -127,6 +127,6 @@ class PageController extends Controller
       $question->save();
     }
     Page::destroy($validInput['page']);
-    return back()->with('site-message-success', __('ui.successfullysave'));
+    return back()->with('site-message-success', 'Sikeres mentés!');
   }
 }

@@ -27,7 +27,7 @@ class ConfigController extends Controller
         'category'=>'greetings',
         'content'=> $request->greetings,
       ]);
-      return back()->with('site-message-success', __('ui.successfullysave'));
+      return back()->with('site-message-success', 'Sikeres mentés!');
     }
 
     public function StoreRegards(Request $request)
@@ -40,7 +40,7 @@ class ConfigController extends Controller
         'category'=>'regards',
         'content'=> $request->regards,
       ]);
-      return back()->with('site-message-success', __('ui.successfullysave'));
+      return back()->with('site-message-success', 'Sikeres mentés!');
     }
 
     public function StoreMail(Request $request)
@@ -53,7 +53,7 @@ class ConfigController extends Controller
         'category'=>'mail',
         'content'=> $validInput['mail'],
       ]);
-      return back()->with('site-message-success', __('ui.successfullysave'));
+      return back()->with('site-message-success', 'Sikeres mentés!');
     }
 
     public function StoreGooglelink(Request $request)
@@ -65,6 +65,6 @@ class ConfigController extends Controller
         'category'=>'googlelink',
         'content'=> $validInput['googlelink'],
       ]);
-      return back()->with('site-message-success', __('ui.successfullysave'));
+      return back()->with('site-message-success', 'Sikeres mentés!');
     }
 }

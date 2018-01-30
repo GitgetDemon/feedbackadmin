@@ -24,7 +24,7 @@ class QuestionController extends Controller
         'answer_type' => $request->answertype
       ]);
 
-      return back()->with('site-message-success', __('ui.successfullysave'));
+      return back()->with('site-message-success', 'Sikeres mentés!');
     }
 
     public function showmodify(Request $request)
@@ -47,7 +47,7 @@ class QuestionController extends Controller
       $question = Question::find($request->id);
       $question->question = $validInput['selectedquestion'];
       $question->save();
-      return back()->with('site-message-success', __('ui.successfullysave'));
+      return back()->with('site-message-success', 'Sikeres mentés!');
     }
 
     public function showDeletable()
@@ -62,6 +62,6 @@ class QuestionController extends Controller
         ['question'=>'required']
       );
       Question::destroy($validInput['question']);
-      return back()->with('site-message-success', __('ui.successfullysave'));
+      return back()->with('site-message-success', 'Sikeres mentés!');
     }
 }
