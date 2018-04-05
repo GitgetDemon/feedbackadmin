@@ -21,7 +21,7 @@ class SalutationPageController extends Controller
       return redirect()->route('guest.greetingsShow');
     }
 
-    if($result->result > 4)
+    if($result->result >= 4)
     {
       $getInfo = Config::category('googlelink')->first();
       $googlelink = $getInfo->content;
