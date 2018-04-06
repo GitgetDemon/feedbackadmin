@@ -23,7 +23,7 @@
                         }).then(function(){
                             window.location.href = "{{$googlelink}}";
                             })
-                    },3000);
+                    },1000);
                 </script>
             @endif
         </div>
